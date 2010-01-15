@@ -13,8 +13,8 @@ class CreateTogMailTables < ActiveRecord::Migration
       t.text     :content
       t.integer  :folder_id
       t.boolean  :is_read,    :default => false
-      t.integer  :from_user_id
-      t.integer  :to_user_id
+      t.integer  :from_user_id, :references => :users
+      t.integer  :to_user_id, :references => :users
       t.timestamps
     end
     create_table :message_readings do |t|
@@ -27,8 +27,8 @@ class CreateTogMailTables < ActiveRecord::Migration
   end
 
   def self.down
-    drop_table :folders
-    drop_table :messages
     drop_table :message_readings
+    drop_table :messages
+    drop_table :folders
   end
 end
